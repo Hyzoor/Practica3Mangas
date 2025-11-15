@@ -3,7 +3,7 @@ import { getDb } from "../mongo";
 import validateComic from "../utils/validateComics";
 import { Comic, DataValidated } from "../types";
 import { AuthRequest, verifyToken } from "../utils/verifyToken";
-import { ObjectId } from "mongodb";
+import { Filter, ObjectId } from "mongodb";
 
 const router = Router();
 const coleccion = () => getDb().collection("Comics");
@@ -73,7 +73,13 @@ router.get('/', async (req: AuthRequest, res) => {
 
     try {
 
-        const data = await coleccion().find({ userId: req.user?.id }).skip(skip).limit(limit).toArray();
+        const filtroTitulo = req.query?.titulo;
+
+        const filtro: any = { userId: req.user?.id };
+
+        if (filtroTitulo) filtro.titulo = filtroTitulo;
+
+        const data = await coleccion().find(filtro).skip(skip).limit(limit).toArray();
         const initial: DataValidated = { results: [], invalids: [] };
 
         const dataValidated = data.reduce((accum, i) => {

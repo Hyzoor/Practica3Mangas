@@ -1,0 +1,6 @@
+PORT=3000
+USER_MONGO=erUser
+USER_PASSWORD=laklave
+MONGO_CLUSTER=erkluster
+MONGO_APP_NAME=lakosaloca
+SECRET=ersekretiko

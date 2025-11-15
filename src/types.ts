@@ -4,7 +4,8 @@ export type Comic = {
     autor: string,
     year: number,
     publisher: string,
-    userId: number
+    userId: number,
+    status?: "Leido" | "Pendiente"
 
 }
 
